@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Recommendations</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        /* Hero Section */
+        .hero {
+            background-image: url('https://via.placeholder.com/1920x600.png?text=Movie+Recommendations'); /* Replace with your image URL */
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            color: #fff;
+            padding: 50px 20px;
+            font-family: 'Georgia', serif;
+        }
+
+        .hero h1 {
+            font-size: 3em;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.5em;
+            margin-top: 10px;
+        }
+
+        /* Form Section */
+        .form-section {
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+            background-color: #f0f8ff;
+        }
+
+        .form-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .form-container label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .form-container input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(45deg, #ff6b6b, #f06595);
+            color: white;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .form-container button:hover {
+            background: linear-gradient(45deg, #f06595, #ff6b6b);
+        }
+
+        /* Recommendations Section */
+        .recommendations {
+            padding: 40px 20px;
+        }
+
+        .recommendations h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .recommendations table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .recommendations th, .recommendations td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        .recommendations th {
+            background-color: #eaeaea;
+        }
+
+        .recommendations tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .recommendations .card {
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .recommendations .card:hover {
+            transform: scale(1.05);
+        }
+
+        .recommendations .card h3 {
+            margin: 0 0 10px;
+        }
+
+        .recommendations .card p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>Movie Recommendations</h1>
+        <p>Discover movies tailored just for you</p>
+    </div>
+
+    <!-- Form Section -->
+    <div class="form-section">
+        <div class="form-container">
+            <h2>Get Recommendations</h2>
+            <form method="POST">
+                <label for="movie_title">Movie Title:</label>
+                <input type="text" id="movie_title" name="movie_title" placeholder="Enter movie title">
+
+                <label for="user_id">User ID:</label>
+                <input type="number" id="user_id" name="user_id" placeholder="Enter user ID" value="0">
+
+                <button type="submit">Get Recommendations</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Recommendations Section -->
+    <div class="recommendations">
+        <h2>Current Recommendations</h2>
+        {% if not recommendations.empty %}
+            {% for rec in recommendations %}
+                <div class="card">
+                    <h3>{{ rec.title }}</h3>
+                    <p><strong>Genres:</strong> {{ rec.genres }}</p>
+                    <p><strong>Predicted Rating:</strong> {{ rec.predicted_rating }}</p>
+                    <p><strong>Source:</strong> {{ rec.source }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p style="text-align: center;">No recommendations available. Please input details above.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
